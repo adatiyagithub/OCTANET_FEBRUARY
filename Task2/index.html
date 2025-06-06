@@ -1,100 +1,62 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>To-Do List</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
-
-    .container {
-        max-width: 400px;
-        margin: 20px auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-        text-align: center;
-    }
-
-    input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    li {
-        margin-bottom: 5px;
-    }
-
-    .btn {
-        background-color: #4caf50;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-
-    .btn:hover {
-        background-color: #45a049;
-    }
-
-    .delete-btn {
-        background-color: #f44336;
-    }
-
-    .delete-btn:hover {
-        background-color: #da190b;
-    }
-</style>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div class="container">
-    <h1>To-Do List</h1>
-    <input type="text" id="taskInput" placeholder="Enter a task...">
-    <button class="btn" onclick="addTask()">Add Task</button>
-    <ul id="taskList"></ul>
-</div>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+    <h1 class="text-2xl font-semibold text-center mb-6">To-Do List</h1>
+    <input
+      type="text"
+      id="taskInput"
+      placeholder="Enter a task..."
+      class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+    />
+    <button
+      class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-md mb-6 transition"
+      onclick="addTask()"
+    >
+      Add Task
+    </button>
+    <ul id="taskList" class="list-none space-y-3"></ul>
+  </div>
 
-<script>
+  <script>
     function addTask() {
-        var taskInput = document.getElementById("taskInput");
-        var taskList = document.getElementById("taskList");
+      var taskInput = document.getElementById("taskInput");
+      var taskList = document.getElementById("taskList");
 
-        if (taskInput.value.trim() !== "") {
-            var li = document.createElement("li");
-            li.textContent = taskInput.value;
-            taskList.appendChild(li);
+      if (taskInput.value.trim() !== "") {
+        var li = document.createElement("li");
+        li.className = "flex justify-between items-center bg-gray-50 rounded-md px-4 py-2 shadow-sm";
 
-            var deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "Delete";
-            deleteBtn.className = "btn delete-btn";
-            deleteBtn.onclick = function () {
-                taskList.removeChild(li);
-            };
+        var span = document.createElement("span");
+        span.textContent = taskInput.value;
+        li.appendChild(span);
 
-            li.appendChild(deleteBtn);
-            taskInput.value = "";
-        } else {
-            alert("Please enter a task!");
-        }
+        var deleteBtn = document.createElement("button");
+        deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        deleteBtn.className = "text-red-600 hover:text-red-800 transition";
+        deleteBtn.setAttribute("aria-label", "Delete task");
+        deleteBtn.onclick = function () {
+          taskList.removeChild(li);
+        };
+
+        li.appendChild(deleteBtn);
+        taskList.appendChild(li);
+
+        taskInput.value = "";
+        taskInput.focus();
+      } else {
+        alert("Please enter a task!");
+      }
     }
-</script>
+  </script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
 </body>
 </html>
